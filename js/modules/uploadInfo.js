@@ -1,11 +1,3 @@
-// <div class="item">
-//             <img style="border-radius: 4px 4px 0 0" src="https://picsum.photos/240/168">
-//             <div class="desc">
-//                 <h2 class="name">Rick Sanchez</h2>
-//                 <h3 class="race">Human</h3>
-//             </div>
-//         </div>
-
 export const createContent = (info, char) => {
     const BASE_URL = `https://rickandmortyapi.com/api`
 
@@ -15,14 +7,17 @@ export const createContent = (info, char) => {
             return res.json()
         })
         .then(data => {
+            console.dir(data.results)
             data.results.forEach(response => {
-                info.insertAdjacentHTML('afterbegin', `
+                info.insertAdjacentHTML('beforeend', `
         <div class="item">
+        <a href="character.html?id=${response.id}">
             <img style="border-radius: 4px 4px 0 0" src="${response.image}">
             <div class="desc">
                 <h2 class="name">${response.name}</h2>
                 <h3 class="race">${response.species}</h3>
             </div>
+        </a>
         </div>`)
             })
         })

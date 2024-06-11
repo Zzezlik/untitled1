@@ -39,3 +39,12 @@ input.addEventListener('input', e => {
         }
     }
 })
+
+
+document.addEventListener('scroll', e => {
+    if(window.scrollY >= 1000) {
+        console.dir('start')
+        
+    }
+    document.removeEventListener()
+})

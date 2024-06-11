@@ -6,11 +6,14 @@
 //             </div>
 //         </div>
 
-export const createContent = (info) => {
+export const createContent = (info, char) => {
     const BASE_URL = `https://rickandmortyapi.com/api`
 
-    const fetchingContent = fetch(`${BASE_URL}/character`)
-        .then(res => res.json())
+    const fetchingContent = fetch(`${BASE_URL}/character/?${char}`)
+        .then(res => {
+            if (!res.ok) throw new Error(res.status);
+            return res.json()
+        })
         .then(data => {
             data.results.forEach(response => {
                 info.insertAdjacentHTML('afterbegin', `
@@ -22,5 +25,13 @@ export const createContent = (info) => {
             </div>
         </div>`)
             })
+        })
+        .catch((err) => {
+            console.dir(err)
+            info.innerHTML = `
+                <div class="notfound">
+        <h3>Character not found!</h3>
+        <h5>Try another character or another okun'</h4>
+</div>`
         })
 }
